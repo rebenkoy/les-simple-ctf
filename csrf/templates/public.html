@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Published — VaultKeep{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">📢</div>
+  <h1>Published notes</h1>
+  <div class="meta">
+    {% if published %}
+    <div class="qlabel">Recovery note</div>
+    <pre class="out">{{ flag }}</pre>
+    {% else %}
+    <p class="hint">The recovery note is private. Nothing has been published.</p>
+    {% endif %}
+    <p class="hint"><a href="/">← back</a></p>
+  </div>
+</div>
+{% endblock %}

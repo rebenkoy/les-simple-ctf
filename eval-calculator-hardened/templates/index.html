@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔒🧮</div>
+  <h1>Scientific Calculator <span class="tag">hardened</span></h1>
+  <p class="sub">The previous version leaked its variables, so we pulled the secrets out of scope
+  and left only the math library. <code>sin</code>, <code>cos</code>, <code>sqrt</code> still work.</p>
+  <form method="post">
+    <input type="text" name="expr" value="{{ expr }}" placeholder="sin(pi / 2)"
+           autofocus autocomplete="off">
+    <button type="submit" class="yes">Calculate</button>
+  </form>
+  {% if output is not none %}
+  <pre class="out">{{ output }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

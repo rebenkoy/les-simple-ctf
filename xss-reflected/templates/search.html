@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔎</div>
+  <h1>Search results</h1>
+  <p class="sub">Results for: {{ q|safe }}</p>
+  <div class="meta">
+    <p class="hint">No notes matched your search.</p>
+    <p class="hint"><a href="/">← back</a></p>
+  </div>
+</div>
+{% endblock %}

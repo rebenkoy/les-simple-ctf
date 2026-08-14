@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ key }} — Secret Store{% endblock %}
+{% block content %}
+<a class="back" href="{{ url_for('dashboard') }}">← Back to vault</a>
+<div class="revealbox">
+  <div class="kname">{{ key }}</div>
+  <div class="kvalue">{{ value }}</div>
+</div>
+{% endblock %}

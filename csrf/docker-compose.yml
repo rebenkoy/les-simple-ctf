@@ -1,0 +1,11 @@
+name: csrf
+services:
+  app:
+    build: .
+    container_name: csrf
+    hostname: vaultkeep
+    ports:
+      - "8094:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

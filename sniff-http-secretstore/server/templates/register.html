@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Register — Secret Store{% endblock %}
+{% block content %}
+<div class="authbox">
+  <h1>Create an account</h1>
+  <form method="post" action="{{ url_for('register') }}">
+    <label>Username <input type="text" name="username" autocomplete="username" autofocus></label>
+    <label>Password <input type="password" name="password" autocomplete="new-password"></label>
+    <button type="submit">Register</button>
+  </form>
+  <p class="muted">Already registered? <a href="{{ url_for('login') }}">Log in</a>.</p>
+</div>
+{% endblock %}

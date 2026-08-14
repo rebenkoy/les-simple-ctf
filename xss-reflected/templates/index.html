@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔎</div>
+  <h1>KnowledgeBase <span class="tag">v2</span></h1>
+  <p class="sub">Search the notes. Something odd in a result? Report the link and a moderator will look.</p>
+  <form method="get" action="/search">
+    <input type="text" name="q" placeholder="search…" autofocus autocomplete="off">
+    <button type="submit" class="yes">Search</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Report a link to the moderator</div>
+    <form method="post" action="/report">
+      <input type="text" name="url" placeholder="/search?q=…" autocomplete="off">
+      <button type="submit" class="yes">Report</button>
+    </form>
+    <p class="hint">Paste a path like <code>/search?q=…</code>. A moderator reviews reports every
+    couple of minutes. The flag lives on their <code>/moderator</code> page — which only they can see.</p>
+  </div>
+</div>
+{% endblock %}

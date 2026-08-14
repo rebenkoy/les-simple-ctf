@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔒</div>
+  <h1>Admin Secret Storage</h1>
+  <p class="sub">Restricted area. This host isn't listed anywhere — if you found it, you must
+  belong here.</p>
+  <p class="q">Are you an admin?</p>
+  <form method="post" action="{{ url_for('reveal') }}">
+    <button type="submit" class="yes">Yes, I'm an admin</button>
+  </form>
+  <p class="fine">(there is no step two)</p>
+</div>
+{% endblock %}

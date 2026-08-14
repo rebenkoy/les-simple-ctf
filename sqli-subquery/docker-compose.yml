@@ -1,0 +1,11 @@
+name: sqli-subquery
+services:
+  app:
+    build: .
+    container_name: sqli-subquery
+    hostname: securenotes-v5
+    ports:
+      - "8087:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

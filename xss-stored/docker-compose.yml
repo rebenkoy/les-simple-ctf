@@ -1,0 +1,11 @@
+name: xss-stored
+services:
+  app:
+    build: .
+    container_name: xss-stored
+    hostname: feedback
+    ports:
+      - "8092:80"
+    # No FLAG here: the flag is delivered by the admin bot as its `flag` cookie.
+    # It lives in infra/docker-compose.yml (adminbot: FLAG_XSS_STORED) and challenges.toml.
+    restart: unless-stopped

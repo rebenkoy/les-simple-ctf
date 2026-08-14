@@ -1,0 +1,11 @@
+name: xss-reflected
+services:
+  app:
+    build: .
+    container_name: xss-reflected
+    hostname: knowledgebase
+    ports:
+      - "8093:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

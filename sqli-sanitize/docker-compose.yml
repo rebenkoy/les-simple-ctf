@@ -1,0 +1,11 @@
+name: sqli-sanitize
+services:
+  app:
+    build: .
+    container_name: sqli-sanitize
+    hostname: securenotes-v7
+    ports:
+      - "8089:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

@@ -1,0 +1,11 @@
+name: sqli-union
+services:
+  app:
+    build: .
+    container_name: sqli-union
+    hostname: securenotes-v3
+    ports:
+      - "8085:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

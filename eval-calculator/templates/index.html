@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧮</div>
+  <h1>Scientific Calculator</h1>
+  <p class="sub">Enter an expression. <code>sin</code>, <code>cos</code>, <code>sqrt</code>,
+  <code>pi</code> and the rest of the math library are available.</p>
+  <form method="post">
+    <input type="text" name="expr" value="{{ expr }}" placeholder="2 ** 10 + sqrt(16)"
+           autofocus autocomplete="off">
+    <button type="submit" class="yes">Calculate</button>
+  </form>
+  {% if output is not none %}
+  <pre class="out">{{ output }}</pre>
+  {% endif %}
+</div>
+{% endblock %}

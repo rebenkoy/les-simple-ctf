@@ -1,0 +1,11 @@
+name: eval-calculator
+services:
+  calc:
+    build: .
+    container_name: eval-calculator
+    hostname: calc
+    ports:
+      - "8081:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

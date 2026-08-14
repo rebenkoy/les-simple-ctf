@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔎</div>
+  <h1>SecureNotes <span class="tag">v3</span></h1>
+  <p class="sub">Search the public knowledge base by title.</p>
+  <form method="post">
+    <input type="text" name="q" value="{{ q }}" placeholder="coffee" autofocus autocomplete="off">
+    <button type="submit" class="yes">Search</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;input&gt;</span>{{ suf }}</pre>
+    <p class="hint">Flag is in a table called <code>secrets</code>, column <code>flag</code>.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if rows is not none %}
+  <table class="res">
+    <thead><tr><th>title</th><th>body</th></tr></thead>
+    <tbody>
+      {% for r in rows %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>{% endfor %}
+      {% if not rows %}<tr><td colspan="2" class="empty">no matches</td></tr>{% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock %}

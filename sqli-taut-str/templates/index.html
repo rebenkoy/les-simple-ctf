@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">👤</div>
+  <h1>SecureNotes <span class="tag">v2</span></h1>
+  <p class="sub">Staff directory — look up a colleague's account by username.</p>
+  <form method="post">
+    <input type="text" name="username" value="{{ u }}" placeholder="alice" autofocus autocomplete="off">
+    <button type="submit" class="yes">Look up</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;input&gt;</span>{{ suf }}</pre>
+    <p class="hint">Flag is in a table called <code>users</code>, column <code>password</code>.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if rows is not none %}
+  <table class="res">
+    <thead><tr><th>username</th><th>password</th></tr></thead>
+    <tbody>
+      {% for r in rows %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>{% endfor %}
+      {% if not rows %}<tr><td colspan="2" class="empty">no such user</td></tr>{% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock %}

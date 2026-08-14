@@ -1,0 +1,11 @@
+name: sqli-blind
+services:
+  app:
+    build: .
+    container_name: sqli-blind
+    hostname: securenotes-v4
+    ports:
+      - "8086:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

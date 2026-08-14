@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Admin — Feedback Box{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🛠️</div>
+  <h1>Feedback — Admin Review</h1>
+  <p class="sub">All submitted messages.</p>
+  <div class="meta">
+    {% for m in messages|reverse %}<div class="fb">{{ m|safe }}</div>{% endfor %}
+    {% if not messages %}<p class="hint">No messages.</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

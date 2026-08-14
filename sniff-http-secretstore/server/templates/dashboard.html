@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Your vault — Secret Store{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Your vault</h1>
+  <p class="muted">Signed in as <strong>{{ me['username'] }}</strong></p>
+</div>
+
+<h2>Stored keys</h2>
+{% if keys %}
+  <ul class="keys">
+    {% for k in keys %}
+      <li>
+        <span class="kname">{{ k }}</span>
+        <a class="reveal" href="{{ url_for('reveal', key=k) }}">reveal →</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="muted">No secrets yet.</p>
+{% endif %}
+
+<h2>Add a secret</h2>
+<form method="post" action="{{ url_for('store') }}" class="storeform">
+  <input type="text" name="key" placeholder="key" autocomplete="off">
+  <input type="text" name="value" placeholder="value" autocomplete="off">
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

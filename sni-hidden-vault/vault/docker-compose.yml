@@ -1,0 +1,14 @@
+# Deploy on a teacher Pi whose hostname resolves to the secret domain (mDNS alias or
+# /etc/hosts). Students only find that address by reading the SNI in the pcap; the domain
+# itself is in the private solutions repo, not here.
+name: hidden-vault
+services:
+  vault:
+    build: .
+    container_name: hidden-vault
+    hostname: hidden-vault
+    ports:
+      - "80:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

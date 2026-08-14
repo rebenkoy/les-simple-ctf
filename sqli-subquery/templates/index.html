@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧾</div>
+  <h1>SecureNotes <span class="tag">v5</span></h1>
+  <p class="sub">Field previewer — type a column name to preview it from the latest note.</p>
+  <form method="post">
+    <input type="text" name="field" value="{{ field }}" placeholder="title" autofocus autocomplete="off">
+    <button type="submit" class="yes">Preview</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;input&gt;</span>{{ suf }}</pre>
+    <p class="hint">Flag is in a table called <code>secrets</code>, column <code>flag</code>.</p>
+    <p class="hint">Symbols {% for b in blocked %}<code>{{ b|upper }}</code> {% endfor %}are not allowed.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if value is not none %}<pre class="out">{{ value }}</pre>{% endif %}
+</div>
+{% endblock %}

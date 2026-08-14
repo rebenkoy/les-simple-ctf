@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Moderator{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🗝️</div>
+  <h1>Moderator console</h1>
+  <p class="sub">Restricted — moderators only.</p>
+  <div class="meta">
+    <div class="qlabel">Recovery key</div>
+    <pre class="out">{{ flag }}</pre>
+  </div>
+</div>
+{% endblock %}

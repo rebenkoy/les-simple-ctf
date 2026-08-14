@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">📨</div>
+  <h1>Feedback Box <span class="tag">v1</span></h1>
+  <p class="sub">Leave a message for the team. An admin reviews new feedback every couple of minutes.</p>
+  <form method="post">
+    <input type="text" name="message" placeholder="Your message…" autofocus autocomplete="off">
+    <button type="submit" class="yes">Send</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Recent messages</div>
+    {% for m in messages|reverse %}<pre class="sql">{{ m }}</pre>{% endfor %}
+    {% if not messages %}<p class="hint">Nothing yet — be the first.</p>{% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+name: sqli-subquery-nested
+services:
+  app:
+    build: .
+    container_name: sqli-subquery-nested
+    hostname: securenotes-v6
+    ports:
+      - "8088:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

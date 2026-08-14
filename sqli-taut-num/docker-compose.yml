@@ -1,0 +1,11 @@
+name: sqli-taut-num
+services:
+  app:
+    build: .
+    container_name: sqli-taut-num
+    hostname: securenotes-v1
+    ports:
+      - "8083:80"
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped

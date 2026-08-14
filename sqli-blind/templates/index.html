@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">✍️</div>
+  <h1>SecureNotes <span class="tag">v4</span></h1>
+  <p class="sub">Pick a username for your new account — we'll tell you if it's free.</p>
+  <form method="post">
+    <input type="text" name="username" value="{{ u }}" placeholder="newuser" autofocus autocomplete="off">
+    <button type="submit" class="yes">Check</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;input&gt;</span>{{ suf }}</pre>
+    <p class="hint">Flag is in a table called <code>secrets</code>, column <code>flag</code>.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if msg %}<p class="oracle">{{ msg }}</p>{% endif %}
+</div>
+{% endblock %}

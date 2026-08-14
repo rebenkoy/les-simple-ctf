@@ -1,0 +1,16 @@
+# Deploy this on the teacher's "server" Raspberry Pi:  docker compose up -d --build
+# Set the Pi's hostname to `secretstore` so students reach it at http://secretstore.local
+name: secretstore
+services:
+  server:
+    build: .
+    container_name: secretstore
+    hostname: secretstore
+    ports:
+      - "80:80"
+    environment:
+      # FLAG must match infra/web/challenges.toml. Literals (no ${}) so the braces are safe.
+      FLAG: "${FLAG:-}"
+      ADMIN_USER: "admin"
+      ADMIN_PASS: "${ADMIN_PASS:-}"
+    restart: unless-stopped

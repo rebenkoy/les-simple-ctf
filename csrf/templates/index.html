@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔐</div>
+  <h1>VaultKeep <span class="tag">v3</span></h1>
+  <p class="sub">The admin keeps a private recovery note. Only the admin can publish it —
+  by visiting <code>/publish</code> while signed in.</p>
+  <div class="meta">
+    <div class="qlabel">Report a page for the admin to review</div>
+    <form method="post" action="/report">
+      <input type="text" name="url" placeholder="http://host.docker.internal:PORT/evil.html" autocomplete="off">
+      <button type="submit" class="yes">Report</button>
+    </form>
+    <p class="hint">The admin opens reported links every couple of minutes. Their browser will do
+    whatever your page tells it to — with their session. Watch <code><a href="/public">/public</a></code>
+    for the result.</p>
+  </div>
+</div>
+{% endblock %}
