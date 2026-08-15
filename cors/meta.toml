@@ -1,0 +1,6 @@
+id       = "cors"
+title    = "Secrets Storage"
+category = "Web / Client-Side"
+order    = 16
+link     = "https://grader.{host}"
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/cors"

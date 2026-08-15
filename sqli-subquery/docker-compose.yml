@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: sqli-subquery
-    hostname: securenotes-v5
-    ports:
-      - "8087:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-subquery.rule=Host(`sqli-subquery.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-subquery.entrypoints=websecure"
+      - "traefik.http.routers.sqli-subquery.tls=true"
+      - "traefik.http.services.sqli-subquery.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

@@ -1,0 +1,20 @@
+name: cors
+services:
+  app:
+    build: .
+    container_name: cors
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.store.rule=Host(`store.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.store.entrypoints=websecure"
+      - "traefik.http.routers.store.tls=true"
+      - "traefik.http.services.store.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

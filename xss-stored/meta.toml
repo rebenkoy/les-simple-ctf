@@ -1,0 +1,6 @@
+id       = "xss-stored"
+title    = "Feedback Box"
+category = "Web / Client-Side"
+order    = 13
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/xss-stored"

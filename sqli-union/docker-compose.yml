@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: sqli-union
-    hostname: securenotes-v3
-    ports:
-      - "8085:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-union.rule=Host(`sqli-union.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-union.entrypoints=websecure"
+      - "traefik.http.routers.sqli-union.tls=true"
+      - "traefik.http.services.sqli-union.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

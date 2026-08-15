@@ -1,0 +1,6 @@
+id       = "csrf"
+title    = "VaultKeep"
+category = "Web / Client-Side"
+order    = 15
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/csrf"

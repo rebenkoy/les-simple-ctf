@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: sqli-sanitize
-    hostname: securenotes-v7
-    ports:
-      - "8089:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-sanitize.rule=Host(`sqli-sanitize.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-sanitize.entrypoints=websecure"
+      - "traefik.http.routers.sqli-sanitize.tls=true"
+      - "traefik.http.services.sqli-sanitize.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

@@ -1,0 +1,6 @@
+id       = "eval-calculator"
+title    = "The Calculator"
+category = "Web / Injection"
+order    = 4
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/eval-calculator"

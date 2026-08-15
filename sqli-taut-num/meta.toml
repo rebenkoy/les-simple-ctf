@@ -1,0 +1,6 @@
+id       = "sqli-taut-num"
+title    = "SecureNotes v1 — Note Viewer"
+category = "Web / SQLi"
+order    = 6
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-taut-num"

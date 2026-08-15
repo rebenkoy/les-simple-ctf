@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: csrf
-    hostname: vaultkeep
-    ports:
-      - "8094:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.csrf.rule=Host(`csrf.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.csrf.entrypoints=websecure"
+      - "traefik.http.routers.csrf.tls=true"
+      - "traefik.http.services.csrf.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

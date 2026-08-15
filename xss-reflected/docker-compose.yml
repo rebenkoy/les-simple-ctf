@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: xss-reflected
-    hostname: knowledgebase
-    ports:
-      - "8093:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.xss-reflected.rule=Host(`xss-reflected.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.xss-reflected.entrypoints=websecure"
+      - "traefik.http.routers.xss-reflected.tls=true"
+      - "traefik.http.services.xss-reflected.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

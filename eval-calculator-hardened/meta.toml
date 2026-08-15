@@ -1,0 +1,6 @@
+id       = "eval-calculator-hardened"
+title    = "The Calculator, Hardened"
+category = "Web / Injection"
+order    = 5
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/eval-calculator-hardened"

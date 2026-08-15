@@ -1,0 +1,6 @@
+id       = "sqli-union"
+title    = "SecureNotes v3 — Knowledge Base"
+category = "Web / SQLi"
+order    = 8
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-union"

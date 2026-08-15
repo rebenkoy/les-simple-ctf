@@ -1,0 +1,6 @@
+id       = "xss-reflected"
+title    = "KnowledgeBase Search"
+category = "Web / Client-Side"
+order    = 14
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/xss-reflected"

@@ -1,0 +1,6 @@
+id       = "sqli-taut-str"
+title    = "SecureNotes v2 — Staff Directory"
+category = "Web / SQLi"
+order    = 7
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-taut-str"

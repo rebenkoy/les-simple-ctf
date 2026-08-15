@@ -3,9 +3,18 @@ services:
   app:
     build: .
     container_name: sqli-blind
-    hostname: securenotes-v4
-    ports:
-      - "8086:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-blind.rule=Host(`sqli-blind.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-blind.entrypoints=websecure"
+      - "traefik.http.routers.sqli-blind.tls=true"
+      - "traefik.http.services.sqli-blind.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

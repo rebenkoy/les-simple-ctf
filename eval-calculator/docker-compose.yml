@@ -3,9 +3,18 @@ services:
   calc:
     build: .
     container_name: eval-calculator
-    hostname: calc
-    ports:
-      - "8081:80"
     environment:
       FLAG: "${FLAG:-}"
     restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.eval-calculator.rule=Host(`eval-calculator.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.eval-calculator.entrypoints=websecure"
+      - "traefik.http.routers.eval-calculator.tls=true"
+      - "traefik.http.services.eval-calculator.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet
