@@ -4,7 +4,7 @@ targets bite back.
 Flags always look like `CTF{...}`. This one is sitting right here in the briefing:
 
 ```
-CTF{welcome_to_the_arena}
+{flag}
 ```
 
 Paste it into the box below and hit **Submit flag**. Your tile turns green and the
