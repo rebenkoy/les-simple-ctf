@@ -1,0 +1,17 @@
+name: hidden-vault
+services:
+  vault:
+    build: ./vault
+    container_name: hidden-vault
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    # No Traefik label here: the vault answers on the *leaked SNI host* (the pcap secret),
+    # which must stay out of the public repo. `just vault-up` adds that route dynamically
+    # from the operator-supplied SECRET.
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

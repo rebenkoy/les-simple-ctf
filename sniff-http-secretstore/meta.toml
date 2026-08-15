@@ -2,5 +2,5 @@ id       = "sniff-secretstore"
 title    = "Whispers on the Wire"
 category = "Network / Sniffing"
 order    = 2
-link     = "http://secretstore.local"
+web      = true
 source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sniff-http-secretstore"

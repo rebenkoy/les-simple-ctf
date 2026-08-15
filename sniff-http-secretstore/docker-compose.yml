@@ -1,0 +1,24 @@
+name: sniff-secretstore
+services:
+  server:
+    build: ./server
+    container_name: sniff-secretstore
+    environment:
+      FLAG: "${FLAG:-}"
+      ADMIN_USER: "admin"
+      # the sniffable login password — must match the one frozen in the published pcap.
+      # supply it at bring-up:  ADMIN_PASS=... just challenge sniff-secretstore   (see ANSWER-KEY)
+      ADMIN_PASS: "${ADMIN_PASS:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sniff-secretstore.rule=Host(`sniff-secretstore.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sniff-secretstore.entrypoints=websecure"
+      - "traefik.http.routers.sniff-secretstore.tls=true"
+      - "traefik.http.services.sniff-secretstore.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet
