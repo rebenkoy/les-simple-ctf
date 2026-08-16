@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Secret Store — вход{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔑</div>
+  <h1>Secret Store</h1>
+  <p class="sub">Войдите, чтобы увидеть свои заметки.
+  {% if safe %}<br><small>Демо-доступ: <code>alice</code> / <code>letmein</code>.</small>{% endif %}</p>
+  <form method="post" action="/login">
+    <input type="text" name="username" placeholder="alice" autofocus autocomplete="off">
+    <input type="text" name="password" placeholder="пароль" autocomplete="off">
+    <button type="submit" class="yes">Войти</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Запрос входа</div>
+    {% if safe %}
+    <pre class="sql">SELECT user_id FROM users WHERE name = ? AND password = ?</pre>
+    <p class="hint">Логин теперь на параметрах — здесь уже не пролезть.</p>
+    {% else %}
+    <pre class="sql">{{ pre }}<span class="inj">&lt;username&gt;</span>{{ mid }}&lt;password&gt;{{ suf }}</pre>
+    {% endif %}
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+</div>
+{% endblock %}

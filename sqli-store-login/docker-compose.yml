@@ -5,6 +5,7 @@ services:
     container_name: sqli-store-login
     environment:
       FLAG: "${FLAG:-}"
+      SAFE_LOGIN: "0"        # v1: /login is injectable
     restart: unless-stopped
     networks:
       - ctfnet

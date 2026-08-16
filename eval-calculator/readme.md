@@ -1,7 +1,7 @@
 Кто-то написал и опубликовал очень удобный [калькулятор](https://eval-calculator.{host}) В нём есть вообще все функции и константы о которых можно подумать.
 
 Ой, кажется они ещё и какой-то флаг хранят рядом:
-https://github.com/rebenkoy/les-simple-ctf/blob/master/eval-calculator/calc.py#L4
+[код](https://github.com/rebenkoy/les-simple-ctf/blob/master/eval-calculator/calc.py#L4)
 Интересно, можно ли его как-то достать?
 
 ---

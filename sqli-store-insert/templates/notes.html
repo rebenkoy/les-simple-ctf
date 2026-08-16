@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Secret Store — заметки{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🗒️</div>
+  <h1>Заметки</h1>
+  <p class="sub">Вы вошли как <code>{{ who }}</code> (user_id {{ uid }}). Видны только ваши заметки.</p>
+  <p class="hint"><a href="/add-note">➕ добавить заметку</a> · <a href="/logout">выйти</a></p>
+  <table class="res">
+    <thead><tr><th>name</th><th>note</th></tr></thead>
+    <tbody>
+      {% for r in notes %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>{% endfor %}
+      {% if not notes %}<tr><td colspan="2" class="empty">заметок пока нет</td></tr>{% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
