@@ -1,11 +1,20 @@
-Someone left a packet capture lying around: [**challenge.pcap**](/static/files/challenge.pcap).
+Кто-то оставил дамп трафика: [**challenge.pcap**](/static/files/challenge.pcap).
 
-It's a slice of ordinary network traffic — browsing, API calls, the usual chatter. But
-somewhere in there, an admin signed in to the **Secret Store** (`http://secretstore.local`)
-over plain **HTTP**. HTTP sends everything in the clear.
+Это срез обычного сетевого трафика — браузинг, вызовы API, привычная болтовня. Но где-то там админ
+вошёл в **Secret Store** (`http://secretstore.local`) по обычному **HTTP**. А HTTP передаёт всё
+открытым текстом.
 
-Open the capture in **Wireshark**, dig through the noise, and find what the admin typed.
-Then do the obvious thing with it: the flag is a secret sitting in *their* vault, and only
-*they* can read it.
+---
+Открой дамп в **Wireshark**, покопайся в шуме и найди, что именно ввёл админ. Дальше сделай очевидное:
+флаг — это секрет в *его* хранилище, и прочитать его может только *он*.
 
-*Tip: not every login you see is the one you want.*
+*Подсказка: не каждый логин, что ты видишь, — тот самый.*
+
+---
+Полезные ссылки:
+
+- [Wireshark](https://www.wireshark.org/)
+- [фильтры отображения (напр. `http.request`)](https://wiki.wireshark.org/DisplayFilters)
+- [Follow → HTTP Stream](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvFollowStreamSection.html)
+
+Хороший план — гуглить "Wireshark + follow HTTP stream".

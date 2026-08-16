@@ -1,0 +1,6 @@
+id       = "sqli-store-insert"
+title    = "Secret Store v2 — My Notes"
+category = "Web / SQLi"
+order    = 14
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-store-insert"

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Secret Store — My Notes{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🗒️</div>
+  <h1>Secret Store <span class="tag">v2</span></h1>
+  <p class="sub">Signed in as <code>alice</code> (user_id {{ me }}). Login is parameterized now — but
+  saving a note isn't. You can only read <em>your own</em> notes below.</p>
+  <form method="post">
+    <input type="text" name="name" placeholder="note name" autocomplete="off">
+    <input type="text" name="value" placeholder="note text" autofocus autocomplete="off">
+    <button type="submit" class="yes">Save note</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}&lt;name&gt;{{ mid }}<span class="inj">&lt;value&gt;</span>{{ suf }}</pre>
+    <p class="hint">The flag is <code>admin</code>'s note (<code>notes.note</code>, where
+    <code>users.name</code> is <code>admin</code>) — you can't read it directly. Make the writer save it
+    <em>into a note of your own</em>. A subquery as the value does the trick; grab admin's user_id in the
+    same payload, or in an earlier note.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if saved %}<p class="oracle">Saved.</p>{% endif %}
+  <div class="qlabel">Your notes</div>
+  <table class="res">
+    <thead><tr><th>name</th><th>note</th></tr></thead>
+    <tbody>
+      {% for r in notes %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>{% endfor %}
+      {% if not notes %}<tr><td colspan="2" class="empty">no notes yet</td></tr>{% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

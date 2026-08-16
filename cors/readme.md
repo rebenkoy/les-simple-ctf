@@ -1,8 +1,18 @@
-[Secrets Storage](https://store.{host}) keeps your private notes behind a small JSON API at
-`/api/account` — revealed only with a valid session. To let *partner apps* integrate, the API echoes
-your `Origin` back and allows credentials.
+[Secrets Storage](https://store.{host}) хранит твои личные заметки за небольшим JSON-API `/api/account`
+— он отдаёт их только по действующей сессии. А чтобы дружить с *партнёрскими приложениями*, API
+возвращает твой `Origin` обратно и разрешает передавать креды.
 
-Reviewers grade design submissions on the **Design Grader** ([https://grader.{host}](https://grader.{host}))
-while signed in here. Submit a page that reads the reviewer's `/api/account` across origins and beacons
-the `secret_note` to you — open the **Listener** tab for your private address. No self-hosting: the
-grader serves your page to the reviewer.
+---
+Ревьюеры проверяют присланные макеты в **Design Grader** ([https://grader.{host}](https://grader.{host})),
+будучи в это время залогинены здесь. Пришли страницу, которая кросс-доменно прочитает их
+`/api/account` и отправит `secret_note` тебе — свой личный адрес возьми во вкладке **Listener**. Хостить
+ничего не надо: грейдер сам покажет ревьюеру твою страницу.
+
+---
+Полезные ссылки:
+
+- [что такое CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS)
+- [fetch с `credentials: include`](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API/Using_Fetch)
+- [заголовок Access-Control-Allow-Credentials](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials)
+
+Хороший план — гуглить "CORS misconfiguration + credentials".

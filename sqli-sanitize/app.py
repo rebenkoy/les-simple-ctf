@@ -6,33 +6,35 @@ FLAG = os.environ.get("FLAG", "")
 db = sqlite3.connect(":memory:", check_same_thread=False)
 db.executescript(
     """
-    CREATE TABLE notes (id INTEGER, title TEXT, body TEXT, visibility TEXT);
-    INSERT INTO notes VALUES (1, 'Welcome', 'Public bulletin board.', 'public');
-    INSERT INTO notes VALUES (2, 'Hours', 'Office is open 9-5.', 'public');
-    INSERT INTO notes VALUES (3, 'Parking', 'Visitor spots are out front.', 'public');
+    CREATE TABLE notes (id INTEGER, title TEXT, body TEXT);
+    INSERT INTO notes VALUES (1, 'Welcome', 'Preview any field of the latest note.');
+    CREATE TABLE secrets (label TEXT, value TEXT);
+    INSERT INTO secrets VALUES ('smtp',    'relay password: hunter2');
+    INSERT INTO secrets VALUES ('backups', 'bucket key: AKIA-not-it');
     """
 )
-db.execute("INSERT INTO notes VALUES (99, '[admin] recovery key', ?, 'secret')", (FLAG,))
+db.execute("INSERT INTO secrets VALUES ('recovery', ?)", (FLAG,))
 db.commit()
 
 BLOCKED = ["'", '"', ";", "--", "/*", "union"]
-PRE = "SELECT title, body FROM notes WHERE visibility = 'public' AND id = "
-SUF = ""
+PRE = "SELECT "
+SUF = " FROM notes LIMIT 1"
 
 app = Flask(__name__)
 
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    rows, error, nid = None, None, ""
+    value, error, field = None, None, ""
     if request.method == "POST":
-        nid = request.form.get("id", "")
-        if any(b in nid.lower() for b in BLOCKED):
+        field = request.form.get("field", "")
+        if any(b in field.lower() for b in BLOCKED):
             error = "Request rejected by input firewall."
         else:
             try:
-                rows = db.execute(PRE + nid + SUF).fetchall()
+                row = db.execute(PRE + field + SUF).fetchone()
+                value = row[0] if row else None
             except Exception as ex:
                 error = f"{type(ex).__name__}: {ex}"
-    return render_template("index.html", rows=rows, error=error, nid=nid,
+    return render_template("index.html", value=value, error=error, field=field,
                            pre=PRE, suf=SUF, blocked=BLOCKED)

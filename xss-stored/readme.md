@@ -1,6 +1,20 @@
-The [Feedback Box](https://xss-stored.{host}) lets anyone leave a message — and an **admin reviews new
-feedback every couple of minutes** in their own browser. Their review page trusts what you submit a
-little too much.
+[Feedback Box](https://xss-stored.{host}) позволяет каждому оставить сообщение — а **админ каждые пару
+минут просматривает новые отзывы** в своём браузере. Его страница просмотра слишком доверяет тому, что
+ты присылаешь.
 
-Their session carries a secret. Make their browser hand it to you. Open the **Listener** tab to get
-your private beacon address, then watch it for whatever their browser sends (or run your own `ncat`).
+---
+В его сессии лежит секрет. Заставь его браузер отдать этот секрет тебе. Открой вкладку **Listener**,
+чтобы получить свой личный адрес-маячок, и следи за ним — туда прилетит то, что отправит его браузер
+(или подними свой `ncat`).
+
+У каждого твоего сообщения крутится спиннер, пока ревьюер его не посмотрит. А чтобы почувствовать, как
+payload отрисуется на странице просмотра, испробуй его на себе в **песочнице**.
+
+---
+Полезные ссылки:
+
+- [что такое XSS](https://developer.mozilla.org/ru/docs/Glossary/Cross-site_scripting)
+- [чтение document.cookie](https://developer.mozilla.org/ru/docs/Web/API/Document/cookie)
+- [отправка данных через fetch / Image](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API/Using_Fetch)
+
+Хороший план — гуглить "stored XSS + cookie stealing".

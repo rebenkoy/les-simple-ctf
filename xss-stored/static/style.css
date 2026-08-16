@@ -59,3 +59,22 @@ button.yes:hover { filter: brightness(1.08); }
 
 .fb { text-align: left; background: #0b1020; border: 1px solid var(--border);
   border-radius: var(--radius); padding: 0.7rem 0.9rem; margin: 0.5rem 0 0; }
+
+/* self-test forms + reviewer-status UI (shared across client-side rungs) */
+textarea {
+  flex: 1; min-width: 0; min-height: 96px; padding: 0.7rem 0.9rem; border-radius: var(--radius);
+  border: 1px solid var(--border); background: #0b1020; color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.95rem; resize: vertical;
+}
+form { align-items: flex-start; }
+.reviewer { color: var(--muted); font-size: 0.8rem; margin: 0.8rem 0 0; text-align: center; }
+.item { text-align: left; background: #0b1020; border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.6rem 0.9rem; margin: 0.5rem 0 0; }
+.item .sql { border: 0; padding: 0.15rem 0 0; background: transparent; }
+.item a { color: var(--accent); }
+.status { display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; color: var(--muted); }
+.status.seen { color: var(--accent); }
+.spin { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--border);
+  border-top-color: var(--accent); animation: spin 0.7s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }

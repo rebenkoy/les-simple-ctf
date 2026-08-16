@@ -1,5 +1,11 @@
-The calculator leaked, so the team [locked it down](https://eval-calculator-hardened.{host}): it now evaluates with
-**only the math library in scope** — the secret's been pulled out. Nothing to dump. Case closed.
+Они заметили!
+В новой версии [калькулятора](https://eval-calculator-hardened.{host}) программисты не трогают флаг.
+https://github.com/rebenkoy/les-simple-ctf/blob/master/eval-calculator-hardened/calc.py#L2
+Интересно, а удалили ли они файл с флагом?
 
-Except a locked room still has doors. The engine is the same, and it can still reach outside
-itself — the secret just moved somewhere else on the box. Go get it.
+---
+Полезные материалы:
+[содержимое библиотки math](https://docs.python.org/3/library/math.html)
+[встроенные функции](https://docs.python.org/3/library/functions.html)
+[eval](https://docs.python.org/3/library/functions.html#eval)
+[locals](https://docs.python.org/3/library/functions.html#locals)

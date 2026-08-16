@@ -1,0 +1,6 @@
+id       = "sqli-store-login"
+title    = "Secret Store v1 — Sign In"
+category = "Web / SQLi"
+order    = 13
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-store-login"

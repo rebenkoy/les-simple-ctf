@@ -1,6 +1,6 @@
 id       = "sqli-blind"
 title    = "SecureNotes v4 — Username Checker"
 category = "Web / SQLi"
-order    = 9
+order    = 15
 web      = true
 source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-blind"

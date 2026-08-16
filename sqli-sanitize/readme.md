@@ -1,5 +1,13 @@
-The final version [added a firewall](https://sqli-sanitize.{host}): send a quote, a `UNION`, a `;` or a
-comment and the request is rejected outright. The note viewer underneath is still injectable in its
-numeric ID slot, and there's a hidden note to reach — you just have to do it **without typing any
-of the forbidden characters**. SQL is more flexible about how you spell things than the filter
-assumes.
+Что-то пока как-то всё просто, мы добавили проверок, чтобы вы точно не протащили никакой инъекции, встречайте [безопасная версия](https://sqli-sanitize.{host}).
+Если в запросе встретятся кавычка, `UNION`, `;` , `JOIN` или комментарий, мы отклоняем его целиком. Теперь-то точно безопасно.
+
+---
+Флаг в таблице `secrets` в колонке `value` в строке с `label = recovery`
+
+---
+Полезные ссылки:
+
+- [встроенные функции SQLite (см. char)](https://sqlite.org/lang_corefunc.html)
+- [подзапросы](https://www.sqlitetutorial.net/sqlite-subquery/)
+
+Хороший план — гуглить "SQLite + интересующее вас действие".

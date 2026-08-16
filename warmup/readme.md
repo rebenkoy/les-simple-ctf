@@ -1,12 +1,9 @@
-Welcome to the arena. This tile exists so you can learn the flow before the real
-targets bite back.
+Добро пожаловать в систему, каждая задача это какой-то сервис, который можно взломать и достать из него флаг выглядящий как `CTF{...}`. 
 
-Flags always look like `CTF{...}`. This one is sitting right here in the briefing:
+Например вот флаг этого задания
 
 ```
 {flag}
 ```
 
-Paste it into the box below and hit **Submit flag**. Your tile turns green and the
-progress counter ticks up. That's the whole game — except every other flag is hidden
-inside a service you have to break.
+Ниже есть поле **Submit flag** в которое надо скопировать флаг.

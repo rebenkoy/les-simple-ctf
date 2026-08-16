@@ -1,6 +1,6 @@
 id       = "sqli-subquery-nested"
 title    = "SecureNotes v6 — Shared With You"
 category = "Web / SQLi"
-order    = 11
+order    = 10
 web      = true
 source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-subquery-nested"

@@ -1,5 +1,14 @@
-Same bug, different spot. The [staff directory](https://sqli-taut-str.{host}) looks a colleague up by
-**username** — and this time your input lands *inside a quoted string*. The `admin` account is
-filtered out of normal results, and its (plaintext) password is the prize.
+У нас появился [справочник сотрудников](https://sqli-taut-str.{host}): вводишь имя — видишь карточку.
+Пароли пока храним как есть (так удобнее), но каталог показывает только обычных пользователей.
 
-Break out of the quote.
+---
+Админа в выдаче нет — его отфильтровали по роли. А его пароль как раз и есть флаг.
+
+---
+Полезные ссылки:
+
+- [оператор WHERE](https://www.sqlitetutorial.net/sqlite-where/)
+- [строковые литералы и кавычки](https://sqlite.org/lang_expr.html#literal_values_constants_)
+- [выражения и операторы (AND / OR)](https://sqlite.org/lang_expr.html)
+
+Хороший план — гуглить "SQLite + интересующее вас действие".

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Secret Store — Sign In{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔑</div>
+  <h1>Secret Store <span class="tag">v1</span></h1>
+  <p class="sub">Sign in to read your private notes. Signing in as <code>admin</code> reveals theirs.</p>
+  <form method="post">
+    <input type="text" name="username" value="{{ username }}" placeholder="alice" autofocus autocomplete="off">
+    <input type="text" name="password" placeholder="password" autocomplete="off">
+    <button type="submit" class="yes">Sign in</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;username&gt;</span>{{ mid }}&lt;password&gt;{{ suf }}</pre>
+    <p class="hint">The flag is <code>admin</code>'s note (table <code>notes</code>, column
+    <code>note</code>). You don't have admin's password — so don't ask the query for it.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if who is not none %}
+  <p class="oracle">Signed in as user_id {{ who }}</p>
+  <table class="res">
+    <thead><tr><th>name</th><th>note</th></tr></thead>
+    <tbody>
+      {% for r in notes %}<tr><td>{{ r[0] }}</td><td>{{ r[1] }}</td></tr>{% endfor %}
+      {% if not notes %}<tr><td colspan="2" class="empty">no notes</td></tr>{% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 id       = "sqli-subquery"
 title    = "SecureNotes v5 — Field Previewer"
 category = "Web / SQLi"
-order    = 10
+order    = 9
 web      = true
 source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-subquery"

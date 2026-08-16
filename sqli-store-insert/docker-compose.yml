@@ -1,0 +1,20 @@
+name: sqli-store-insert
+services:
+  app:
+    build: .
+    container_name: sqli-store-insert
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-store-insert.rule=Host(`sqli-store-insert.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-store-insert.entrypoints=websecure"
+      - "traefik.http.routers.sqli-store-insert.tls=true"
+      - "traefik.http.services.sqli-store-insert.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

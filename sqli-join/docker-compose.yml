@@ -1,0 +1,20 @@
+name: sqli-join
+services:
+  app:
+    build: .
+    container_name: sqli-join
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-join.rule=Host(`sqli-join.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-join.entrypoints=websecure"
+      - "traefik.http.routers.sqli-join.tls=true"
+      - "traefik.http.services.sqli-join.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

@@ -1,6 +1,14 @@
-An `eval` in a service is rare — but plenty of services forget that **SQL is also a language**.
-[SecureNotes](https://sqli-taut-num.{host}) lets you pull up a note by its numeric **ID**, and it builds
-that lookup by pasting your input straight into a query.
+Мы сделали [просмотрщик заметок](https://sqli-taut-num.{host}): вводишь номер заметки — получаешь её
+содержимое. Показываем только опубликованные заметки, всё под контролем.
 
-Some notes are marked unpublished. Convince the database to hand them over anyway. The ID is a
-number — you won't even need a quote.
+---
+Одна заметка осталась неопубликованной, и админ спрятал в ней ключ восстановления.
+
+---
+Полезные ссылки:
+
+- [оператор WHERE](https://www.sqlitetutorial.net/sqlite-where/)
+- [выражения и операторы (AND / OR)](https://sqlite.org/lang_expr.html)
+- [комментарии в SQL](https://sqlite.org/lang_comment.html)
+
+Хороший план — гуглить "SQLite + интересующее вас действие".

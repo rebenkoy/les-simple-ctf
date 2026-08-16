@@ -1,3 +1,10 @@
-The [field previewer](https://sqli-subquery.{host}) shows one column of the latest note — and your input
-*is* the column it selects. They've blocked `UNION`, so the v3 move is out. But UNION was never the
-only way to read another table.
+В новой версии — [предпросмотр полей](https://sqli-subquery.{host}): пишешь имя столбца, и мы
+показываем это поле у последней заметки. Ах да, `UNION` мы на всякий случай запретили.
+
+---
+Полезные ссылки:
+
+- [подзапросы](https://www.sqlitetutorial.net/sqlite-subquery/)
+- [оператор SELECT](https://sqlite.org/lang_select.html)
+
+Хороший план — гуглить "SQLite + интересующее вас действие".

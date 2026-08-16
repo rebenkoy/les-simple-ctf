@@ -1,7 +1,20 @@
-The [KnowledgeBase search](https://xss-reflected.{host}) drops your query straight back into the results
-page. You can also **report a link** for a moderator to review — and the moderator's browser can
-reach a page yours can't.
+[Поиск KnowledgeBase](https://xss-reflected.{host}) кладёт твой запрос прямо обратно в страницу
+результатов. Ещё можно **пожаловаться на ссылку** модератору — а его браузер достаёт до страницы, до
+которой твой не достаёт.
 
-The flag isn't a cookie this time; it's on a console only the moderator can open. Get their browser
-to read it and send it your way. Grab your private beacon address from the **Listener** tab (or use
-your own `ncat`).
+---
+Флаг на этот раз не в куке — он на консоли, которую может открыть только модератор. Заставь его браузер
+прочитать флаг и прислать его тебе. Свой личный адрес-маячок возьми во вкладке **Listener** (или подними
+свой `ncat`).
+
+У каждой присланной ссылки крутится спиннер, пока модератор её не посетит. А чтобы почувствовать, как
+отражается запрос, испробуй его на себе в **песочнице**.
+
+---
+Полезные ссылки:
+
+- [что такое XSS](https://developer.mozilla.org/ru/docs/Glossary/Cross-site_scripting)
+- [запрос fetch к своему же origin](https://developer.mozilla.org/ru/docs/Web/API/Fetch_API/Using_Fetch)
+- [чтение содержимого страницы (DOM)](https://developer.mozilla.org/ru/docs/Web/API/Document)
+
+Хороший план — гуглить "reflected XSS + fetch same-origin".

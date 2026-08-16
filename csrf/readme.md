@@ -1,6 +1,19 @@
-[VaultKeep](https://csrf.{host}) keeps a private recovery note that **only the admin can publish**.
-No injection here — the admin **opens links you report** every couple of minutes, and their browser
-does what your page tells it to, using their session.
+[VaultKeep](https://csrf.{host}) хранит приватную заметку восстановления, и опубликовать её может
+**только админ** — зайдя на `/publish` под своей учёткой. Инъекций тут нет: админ каждые пару минут
+**открывает страницы, которые ты захостил**, и его браузер делает то, что скажет твоя страница, с его
+сессией.
 
-Craft a page that makes the admin publish the note without meaning to. The result shows up on
-`/public`. (The challenge README has the exact host-a-page steps.)
+---
+Вставь сырой HTML в поле — он раздаётся по `/hosted/<id>`, и админ его откроет (свой сервер поднимать
+не нужно). Сделай страницу, которая заставит админа опубликовать заметку, сам того не желая; результат
+появится на `/public`. У каждой захостенной страницы крутится спиннер, пока админ её не откроет. Сначала
+открой свой `/hosted/<id>` сам — посмотришь, как он загрузится ровно так же, как у админа.
+
+---
+Полезные ссылки:
+
+- [что такое CSRF](https://developer.mozilla.org/ru/docs/Glossary/CSRF)
+- [автоматическая отправка формы](https://developer.mozilla.org/ru/docs/Web/HTML/Element/form)
+- [куки и атрибут SameSite](https://developer.mozilla.org/ru/docs/Web/HTTP/Headers/Set-Cookie/SameSite)
+
+Хороший план — гуглить "CSRF + auto-submitting form".

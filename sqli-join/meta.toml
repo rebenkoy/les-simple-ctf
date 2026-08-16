@@ -1,0 +1,6 @@
+id       = "sqli-join"
+title    = "SecureNotes v8 — Cross-Reference"
+category = "Web / SQLi"
+order    = 12
+web      = true
+source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-join"

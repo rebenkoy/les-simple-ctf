@@ -1,0 +1,20 @@
+name: sqli-store-login
+services:
+  app:
+    build: .
+    container_name: sqli-store-login
+    environment:
+      FLAG: "${FLAG:-}"
+    restart: unless-stopped
+    networks:
+      - ctfnet
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sqli-store-login.rule=Host(`sqli-store-login.${DOMAIN:-ctf.test}`)"
+      - "traefik.http.routers.sqli-store-login.entrypoints=websecure"
+      - "traefik.http.routers.sqli-store-login.tls=true"
+      - "traefik.http.services.sqli-store-login.loadbalancer.server.port=80"
+networks:
+  ctfnet:
+    external: true
+    name: vuln-services-ctfnet

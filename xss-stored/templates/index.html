@@ -3,15 +3,50 @@
 <div class="card">
   <div class="lock">📨</div>
   <h1>Feedback Box <span class="tag">v1</span></h1>
-  <p class="sub">Leave a message for the team. An admin reviews new feedback every couple of minutes.</p>
+  <p class="sub">Leave a message for the team. An admin reviews new feedback in their own browser
+  every couple of minutes.</p>
   <form method="post">
-    <input type="text" name="message" placeholder="Your message…" autofocus autocomplete="off">
+    <textarea name="message" placeholder="Your message…" autofocus autocomplete="off"></textarea>
     <button type="submit" class="yes">Send</button>
   </form>
+  <p class="reviewer" id="reviewer">reviewer status: …</p>
   <div class="meta">
-    <div class="qlabel">Recent messages</div>
-    {% for m in messages|reverse %}<pre class="sql">{{ m }}</pre>{% endfor %}
-    {% if not messages %}<p class="hint">Nothing yet — be the first.</p>{% endif %}
+    <div class="qlabel">Your messages <small>— only you see this list</small></div>
+    <div id="mine">
+      {% for m in messages|reverse %}
+        <div class="item">
+          <span class="status" data-id="{{ m.id }}"></span>
+          <pre class="sql">{{ m.text }}</pre>
+        </div>
+      {% else %}
+        <p class="hint">Nothing yet — send a message above.</p>
+      {% endfor %}
+    </div>
+    <p class="hint">Want to see how a message renders on the review page before the admin does?
+    <a href="/playground-view">Test one on yourself →</a></p>
   </div>
 </div>
+<script>
+function ago(ts){
+  if(!ts) return "reviewer hasn't been online yet";
+  var s = Math.max(0, Math.floor(Date.now()/1000 - ts));
+  if(s < 75) return "reviewer online just now";
+  if(s < 3600) return "reviewer last online " + Math.floor(s/60) + "m ago";
+  return "reviewer offline";
+}
+async function tick(){
+  try{
+    var d = await (await fetch("/status.json")).json();
+    document.getElementById("reviewer").textContent = ago(d.last_online);
+    (d.items || []).forEach(function(it){
+      document.querySelectorAll('.status[data-id="'+it.id+'"]').forEach(function(el){
+        el.className = "status" + (it.seen ? " seen" : "");
+        el.innerHTML = it.seen ? "✓ reviewed"
+          : '<span class="spin"></span> waiting for review';
+      });
+    });
+  }catch(e){}
+}
+tick(); setInterval(tick, 2000);
+</script>
 {% endblock %}

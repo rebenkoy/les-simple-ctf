@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="lock">🔗</div>
+  <h1>SecureNotes <span class="tag">v8</span></h1>
+  <p class="sub">Cross-reference exporter — name the dataset(s) to export. The report is anchored to
+  <code>notes</code>, so it always filters on <code>notes.published</code>.
+  <br><small><code>UNION</code> is rejected.</small></p>
+  <form method="post">
+    <input type="text" name="src" value="{{ src }}" placeholder="notes" autofocus autocomplete="off">
+    <button type="submit" class="yes">Export</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">The query</div>
+    <pre class="sql">{{ pre }}<span class="inj">&lt;input&gt;</span>{{ suf }}</pre>
+    <p class="hint">The <code>secret</code> column on <code>notes</code> is a decoy. The real flag is in
+    table <code>vault</code>, column <code>secret</code>.</p>
+    <p class="hint">Symbols {% for b in blocked %}<code>{{ b|upper }}</code> {% endfor %}are not allowed.</p>
+  </div>
+  {% if error %}<pre class="out">{{ error }}</pre>{% endif %}
+  {% if rows is not none %}
+  <table class="res">
+    <thead><tr>{% for c in cols %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {% for r in rows %}<tr>{% for v in r %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}
+      {% if not rows %}<tr><td colspan="{{ cols|length or 1 }}" class="empty">no rows</td></tr>{% endif %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock %}

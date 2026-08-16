@@ -1,6 +1,6 @@
 id       = "sqli-sanitize"
 title    = "SecureNotes v7 — Firewalled"
 category = "Web / SQLi"
-order    = 12
+order    = 11
 web      = true
 source   = "https://github.com/rebenkoy/les-simple-ctf/tree/master/sqli-sanitize"

@@ -4,10 +4,10 @@
 <div class="card">
   <div class="lock">🛠️</div>
   <h1>Feedback — Admin Review</h1>
-  <p class="sub">All submitted messages.</p>
+  <p class="sub">New messages awaiting review.</p>
   <div class="meta">
-    {% for m in messages|reverse %}<div class="fb">{{ m|safe }}</div>{% endfor %}
-    {% if not messages %}<p class="hint">No messages.</p>{% endif %}
+    {% for m in messages|reverse %}<div class="fb">{{ m.text|safe }}</div>{% endfor %}
+    {% if not messages %}<p class="hint">No new messages.</p>{% endif %}
   </div>
 </div>
 {% endblock %}

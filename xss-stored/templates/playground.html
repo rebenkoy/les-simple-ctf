@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Playground — Feedback Box{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧪</div>
+  <h1>Feedback Box <span class="tag">playground</span></h1>
+  <p class="sub">Your own private sandbox. Whatever you submit here renders in <em>your</em> browser
+  exactly the way the admin's review page renders it — so you can watch your payload fire on yourself
+  before sending it for real.</p>
+  <form method="post" action="/playground-submit">
+    <textarea name="message" placeholder="<img src=x onerror=alert(document.domain)>" autofocus autocomplete="off"></textarea>
+    <button type="submit" class="yes">Render on myself</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Rendered output <small>— same sink as the review page</small></div>
+    <div class="fb">{{ message|safe }}</div>
+    <p class="hint"><a href="/">← back to the Feedback Box</a></p>
+  </div>
+</div>
+{% endblock %}
