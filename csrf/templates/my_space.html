@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}My space — VaultKeep{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧪</div>
+  <h1>VaultKeep <span class="tag">my space</span></h1>
+  <p class="sub">Your own private sandbox. Your page loads in the frame below exactly the way it will
+  in the admin's browser — but with <em>your</em> session, not theirs. If it navigates to
+  <code>/publish</code>, you'll see it answer <code>403 — admin only</code>; the admin's browser gets
+  <code>200</code> instead. Nothing here is queued for the admin.</p>
+  <form method="post" action="/my-space">
+    <textarea name="html" placeholder="<!doctype html>&#10;<form action=&quot;/publish&quot;>…&#10;<script>/* auto-submit */</script>" autofocus autocomplete="off"></textarea>
+    <button type="submit" class="yes">Preview on myself</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Preview <small>— your page, running as you</small></div>
+    {% if has_page %}
+      <iframe src="/my-space/page" class="preview"></iframe>
+    {% else %}
+      <p class="hint">Paste a page above to preview it here.</p>
+    {% endif %}
+    <p class="hint"><a href="/report-to/admin">Host it for the admin →</a>
+    &nbsp;·&nbsp; <a href="/public">check /public</a> &nbsp;·&nbsp; <a href="/">← home</a></p>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}My space — Secrets Storage{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧪</div>
+  <h1>Secrets Storage <span class="tag">my space</span></h1>
+  <p class="sub">Call the API from here, as yourself. Without the reviewer's <code>session</code>
+  cookie you get only guest data — no <code>secret_note</code>. The reviewer's browser, signed in, gets
+  the note; your job is to make <em>their</em> browser read it and send it to you.</p>
+  <div class="meta">
+    <div class="qlabel">GET /api/account <small>— as you (guest)</small></div>
+    <button class="yes" id="try" type="button">Call /api/account</button>
+    <pre class="out" id="out">(response appears here)</pre>
+    <p class="hint">To read it cross-origin you must run from a <em>different</em> origin — host a page
+    on the <a href="https://grader.{{ domain }}">Design Grader</a> that does
+    <code>fetch('https://store.{{ domain }}/api/account', {credentials:'include'})</code>. Every
+    response echoes your <code>Origin</code> into <code>Access-Control-Allow-Origin</code> and sets
+    <code>Access-Control-Allow-Credentials: true</code>.</p>
+    <p class="hint"><a href="/">← home</a></p>
+  </div>
+</div>
+<script>
+document.getElementById("try").addEventListener("click", async function () {
+  var out = document.getElementById("out");
+  out.textContent = "…";
+  try {
+    var r = await fetch("/api/account", {credentials: "include"});
+    out.textContent = JSON.stringify(await r.json(), null, 2);
+  } catch (e) { out.textContent = String(e); }
+});
+</script>
+{% endblock %}

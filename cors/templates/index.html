@@ -2,31 +2,15 @@
 {% block content %}
 <div class="card">
   <div class="lock">🗄️</div>
-  <h1>Secrets Storage <span class="tag">v1</span></h1>
-  <p class="sub">Your private notes live behind a small JSON API. It only reveals them when the request
-  carries your signed-in session — but it's built to let <em>partner apps</em> integrate from other
-  origins.</p>
-  <div class="meta">
-    <div class="qlabel">API</div>
-    <pre class="sql">GET /api/account   →  {"user", "email", "secret_note"}</pre>
-    <p class="hint"><code>secret_note</code> is returned only with a valid <code>session</code> cookie.
-    To support partner apps, every response echoes your <code>Origin</code> back in
-    <code>Access-Control-Allow-Origin</code> and sets <code>Access-Control-Allow-Credentials: true</code>.</p>
-    <button class="yes" id="try" type="button">Call /api/account</button>
-    <pre class="out" id="out">(response appears here)</pre>
-    <p class="hint">Reviewers who grade submissions on the <strong>Design Grader</strong>
-    (<code>http://localhost:8096</code>) are signed in here while they work. In their browser, this API
-    is reachable as <code>http://store.ctf.test/api/account</code>.</p>
+  <h1>Secrets Storage <span class="tag">v4</span></h1>
+  <p class="sub">Your private notes live behind a small JSON API (<code>/api/account</code>). It only
+  reveals them when the request carries your signed-in session — but it's built to let
+  <em>partner apps</em> integrate from other origins.</p>
+  <div class="links">
+    <a class="link-btn" href="https://grader.{{ domain }}">🎨 Submit to the reviewer
+      <small>host a page on the Design Grader — the signed-in reviewer opens it</small></a>
+    <a class="link-btn ghost" href="/my-space">🧪 My space
+      <small>call /api/account as yourself — see what it returns without their session</small></a>
   </div>
 </div>
-<script>
-document.getElementById("try").addEventListener("click", async function () {
-  var out = document.getElementById("out");
-  out.textContent = "…";
-  try {
-    var r = await fetch("/api/account", {credentials: "include"});
-    out.textContent = JSON.stringify(await r.json(), null, 2);
-  } catch (e) { out.textContent = String(e); }
-});
-</script>
 {% endblock %}

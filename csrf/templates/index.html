@@ -3,55 +3,14 @@
 <div class="card">
   <div class="lock">🔐</div>
   <h1>VaultKeep <span class="tag">v3</span></h1>
-  <p class="sub">The admin keeps a private recovery note. Only the admin can publish it —
-  by visiting <code>/publish</code> while signed in. The admin opens pages submitted below in their
-  own browser, using their session.</p>
-  <div class="meta">
-    <div class="qlabel">Host a page for the admin to open</div>
-    <form method="post" action="/host">
-      <textarea name="html" placeholder="<!doctype html>&#10;<form action=&quot;/publish&quot;>…&#10;<script>/* make their browser act */</script>" autofocus autocomplete="off"></textarea>
-      <button type="submit" class="yes">Host page</button>
-    </form>
-    <p class="hint">Paste raw HTML — it's served at <code>/hosted/&lt;id&gt;</code> and the admin opens it.
-    Their browser will do whatever your page tells it to, with their session. Watch
-    <code><a href="/public">/public</a></code> for the result.</p>
-    <p class="reviewer" id="reviewer">admin status: …</p>
-    <div class="qlabel">Your hosted pages <small>— only you see this list</small></div>
-    <div id="mine">
-      {% for p in pages|reverse %}
-        <div class="item">
-          <span class="status" data-id="{{ p.id }}"></span>
-          <a href="/hosted/{{ p.id }}" target="_blank">/hosted/{{ p.id }}</a>
-        </div>
-      {% else %}
-        <p class="hint">You haven't hosted a page yet.</p>
-      {% endfor %}
-    </div>
-    <p class="hint">Open your own <code>/hosted/&lt;id&gt;</code> to see the page load exactly as the
-    admin will — you just won't be signed in as admin, so nothing publishes for you.</p>
+  <p class="sub">The admin keeps a private recovery note. Only the admin can publish it — by visiting
+  <code>/publish</code> while signed in. The admin opens pages you host in their own browser, using
+  their session.</p>
+  <div class="links">
+    <a class="link-btn" href="/report-to/admin">🌐 Submit to the admin
+      <small>host a page the admin opens with their session</small></a>
+    <a class="link-btn ghost" href="/my-space">🧪 My space
+      <small>preview your page on yourself — see /publish refuse a non-admin</small></a>
   </div>
 </div>
-<script>
-function ago(ts){
-  if(!ts) return "admin hasn't been online yet";
-  var s = Math.max(0, Math.floor(Date.now()/1000 - ts));
-  if(s < 75) return "admin online just now";
-  if(s < 3600) return "admin last online " + Math.floor(s/60) + "m ago";
-  return "admin offline";
-}
-async function tick(){
-  try{
-    var d = await (await fetch("/status.json")).json();
-    document.getElementById("reviewer").textContent = ago(d.last_online);
-    (d.items || []).forEach(function(it){
-      document.querySelectorAll('.status[data-id="'+it.id+'"]').forEach(function(el){
-        el.className = "status" + (it.seen ? " seen" : "");
-        el.innerHTML = it.seen ? "✓ opened by admin"
-          : '<span class="spin"></span> waiting for admin';
-      });
-    });
-  }catch(e){}
-}
-tick(); setInterval(tick, 2000);
-</script>
 {% endblock %}

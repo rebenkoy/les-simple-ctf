@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Submit to the moderator — KnowledgeBase{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🚩</div>
+  <h1>Report a link to the moderator</h1>
+  <p class="sub">Paste a path like <code>/search?q=…</code>. The moderator opens reported links in
+  their own browser every couple of minutes. The flag lives on their <code>/moderator</code> page —
+  which only they can see.</p>
+  <form method="post" action="/report-to/admin">
+    <textarea name="url" placeholder="/search?q=…" autofocus autocomplete="off"></textarea>
+    <button type="submit" class="yes">Report</button>
+  </form>
+  <p class="reviewer" id="reviewer">moderator status: …</p>
+  <div class="meta">
+    <div class="qlabel">Your reports <small>— only you see this list</small></div>
+    <div id="mine">
+      {% for r in reports|reverse %}
+        <div class="item">
+          <span class="status" data-id="{{ r.id }}"></span>
+          <pre class="sql">{{ r.url }}</pre>
+        </div>
+      {% else %}
+        <p class="hint">You haven't reported anything yet.</p>
+      {% endfor %}
+    </div>
+    <p class="hint">Craft it first in <a href="/my-space">My space →</a>
+    &nbsp;·&nbsp; <a href="/">← home</a></p>
+  </div>
+</div>
+<script>
+function ago(ts){
+  if(!ts) return "moderator hasn't been online yet";
+  var s = Math.max(0, Math.floor(Date.now()/1000 - ts));
+  if(s < 75) return "moderator online just now";
+  if(s < 3600) return "moderator last online " + Math.floor(s/60) + "m ago";
+  return "moderator offline";
+}
+async function tick(){
+  try{
+    var d = await (await fetch("/status.json")).json();
+    document.getElementById("reviewer").textContent = ago(d.last_online);
+    (d.items || []).forEach(function(it){
+      document.querySelectorAll('.status[data-id="'+it.id+'"]').forEach(function(el){
+        el.className = "status" + (it.seen ? " seen" : "");
+        el.innerHTML = it.seen ? "✓ reviewed"
+          : '<span class="spin"></span> waiting for review';
+      });
+    });
+  }catch(e){}
+}
+tick(); setInterval(tick, 2000);
+</script>
+{% endblock %}

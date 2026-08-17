@@ -3,11 +3,19 @@ from flask import Flask, request, render_template, jsonify
 
 app = Flask(__name__)
 FLAG = os.environ.get("FLAG", "")
+DOMAIN = os.environ.get("DOMAIN", "ctf.test")
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    # landing — two links: host on the grader (the attack), or call the API on yourself first
+    return render_template("index.html", domain=DOMAIN)
+
+
+@app.route("/my-space")
+def my_space():
+    # playground — call /api/account as yourself (no admin session) → guest data, no flag
+    return render_template("my_space.html", domain=DOMAIN)
 
 
 @app.route("/api/account")

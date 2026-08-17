@@ -56,3 +56,13 @@ button.yes:hover { filter: brightness(1.08); }
 .res td { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 .empty { color: var(--muted); text-align: center; font-family: inherit; }
 .oracle { margin: 1rem 0 0; font-size: 1.05rem; font-weight: 600; }
+
+/* two-link landing (shared across client-side rungs) */
+.links { display: flex; flex-direction: column; gap: 0.7rem; margin: 1.3rem 0 0; }
+.link-btn { display: flex; flex-direction: column; gap: 0.2rem; text-align: left;
+  padding: 0.9rem 1.1rem; border-radius: var(--radius); border: 1px solid var(--accent);
+  background: var(--accent); color: #06281c; font-weight: 700; text-decoration: none; }
+.link-btn small { color: #06281c; opacity: 0.85; font-weight: 500; }
+.link-btn.ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.link-btn.ghost small { color: var(--muted); }
+.link-btn:hover { filter: brightness(1.08); }

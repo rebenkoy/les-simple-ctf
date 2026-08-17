@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}My space — KnowledgeBase{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="lock">🧪</div>
+  <h1>KnowledgeBase <span class="tag">my space</span></h1>
+  <p class="sub">Your own private sandbox. Your query reflects into these results exactly the way
+  <code>/search</code> does — so you can watch your payload fire on yourself before you report the
+  equivalent <code>/search?q=…</code> link to the moderator.</p>
+  <form method="get" action="/my-space">
+    <textarea name="q" placeholder="<script>alert(document.domain)</script>" autofocus autocomplete="off"></textarea>
+    <button type="submit" class="yes">Reflect on myself</button>
+  </form>
+  <div class="meta">
+    <div class="qlabel">Results for <small>— same sink as /search</small></div>
+    <p class="sub">{{ q|safe }}</p>
+    <p class="hint"><a href="/report-to/admin">Report a link to the moderator →</a>
+    &nbsp;·&nbsp; <a href="/">← home</a></p>
+  </div>
+</div>
+{% endblock %}

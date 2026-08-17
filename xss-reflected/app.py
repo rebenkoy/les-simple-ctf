@@ -4,7 +4,6 @@ from flask import Flask, request, redirect, render_template, jsonify, Response, 
 app = Flask(__name__)
 FLAG = os.environ.get("FLAG", "")
 REPORTS = []       # {"id", "sid", "url", "seen"}
-PLAY = {}          # sid -> playground query
 BOT_LAST = [0.0]   # moderator heartbeat (epoch)
 
 
@@ -19,24 +18,33 @@ def keep(resp, s):
 
 @app.route("/")
 def index():
-    s = sid()
-    mine = [r for r in REPORTS if r["sid"] == s]
-    return keep(make_response(render_template("index.html", reports=mine)), s)
+    # landing — two links: report a link to the moderator, or reflect on yourself first
+    return keep(make_response(render_template("index.html")), sid())
 
 
 @app.route("/search")
 def search():
+    # reflected sink — what the moderator opens when you report a /search?q= link
     return render_template("search.html", q=request.args.get("q", ""))
 
 
-@app.route("/report", methods=["POST"])
-def report():
+@app.route("/my-space")
+def my_space():
+    # playground — reflects your own query through the same sink, with your own (unprivileged) cookies
+    return keep(make_response(render_template("my_space.html", q=request.args.get("q", ""))), sid())
+
+
+@app.route("/report-to/admin", methods=["GET", "POST"])
+def report_to_admin():
     s = sid()
-    url = request.form.get("url", "").strip()
-    if url:
-        REPORTS.append({"id": secrets.token_hex(4), "sid": s, "url": url, "seen": False})
-        del REPORTS[:-200]
-    return keep(redirect("/"), s)
+    if request.method == "POST":
+        url = request.form.get("url", "").strip()
+        if url:
+            REPORTS.append({"id": secrets.token_hex(4), "sid": s, "url": url, "seen": False})
+            del REPORTS[:-200]
+        return keep(redirect("/report-to/admin"), s)
+    mine = [r for r in REPORTS if r["sid"] == s]
+    return keep(make_response(render_template("report.html", reports=mine)), s)
 
 
 @app.route("/pending")
@@ -70,16 +78,3 @@ def moderator():
     if request.cookies.get("role") == "admin":
         return render_template("moderator.html", flag=FLAG)
     return Response("403 — moderators only", status=403)
-
-
-@app.route("/playground-submit", methods=["POST"])
-def playground_submit():
-    s = sid()
-    PLAY[s] = request.form.get("q", "")
-    return keep(redirect("/playground-view"), s)
-
-
-@app.route("/playground-view")
-def playground_view():
-    s = sid()
-    return keep(make_response(render_template("playground.html", q=PLAY.get(s, ""))), s)

@@ -5,6 +5,7 @@ services:
     container_name: cors
     environment:
       FLAG: "${FLAG:-}"
+      DOMAIN: "${DOMAIN:-ctf.test}"
     restart: unless-stopped
     networks:
       - ctfnet

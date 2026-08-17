@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, render_template, jsonify, make_respo
 
 app = Flask(__name__)
 MESSAGES = []      # {"id", "sid", "text", "seen"}
-PLAY = {}          # sid -> playground text
+PLAY = {}          # sid -> my-space text
 BOT_LAST = [0.0]   # reviewer heartbeat (epoch)
 
 
@@ -16,17 +16,33 @@ def keep(resp, s):
     return resp
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
+    # landing — two links: submit to the reviewer, or test in your own space first
+    return keep(make_response(render_template("index.html")), sid())
+
+
+@app.route("/report-to/admin", methods=["GET", "POST"])
+def report_to_admin():
     s = sid()
     if request.method == "POST":
         text = request.form.get("message", "")
         if text.strip():
             MESSAGES.append({"id": secrets.token_hex(4), "sid": s, "text": text, "seen": False})
             del MESSAGES[:-200]
-        return keep(redirect("/"), s)
+        return keep(redirect("/report-to/admin"), s)
     mine = [m for m in MESSAGES if m["sid"] == s]
-    return keep(make_response(render_template("index.html", messages=mine)), s)
+    return keep(make_response(render_template("report.html", messages=mine)), s)
+
+
+@app.route("/my-space", methods=["GET", "POST"])
+def my_space():
+    # playground — renders your own input through the same sink, with your own (unprivileged) cookies
+    s = sid()
+    if request.method == "POST":
+        PLAY[s] = request.form.get("message", "")
+        return keep(redirect("/my-space"), s)
+    return keep(make_response(render_template("my_space.html", message=PLAY.get(s, ""))), s)
 
 
 @app.route("/admin")
@@ -59,16 +75,3 @@ def status():
     s = request.cookies.get("sid", "")
     items = [{"id": m["id"], "seen": m["seen"]} for m in MESSAGES if m["sid"] == s]
     return jsonify({"items": items, "last_online": BOT_LAST[0] or None})
-
-
-@app.route("/playground-submit", methods=["POST"])
-def playground_submit():
-    s = sid()
-    PLAY[s] = request.form.get("message", "")
-    return keep(redirect("/playground-view"), s)
-
-
-@app.route("/playground-view")
-def playground_view():
-    s = sid()
-    return keep(make_response(render_template("playground.html", message=PLAY.get(s, ""))), s)
